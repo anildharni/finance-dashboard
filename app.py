@@ -47,8 +47,7 @@ app.layout = html.Div(
 
                 html.Div(
                     [
-
-                        dcc.Graph(
+                    dcc.Graph(
                             config={
                                 'displaylogo': False,
                                 'responsive': True},
@@ -119,8 +118,14 @@ app.layout = html.Div(
                                 title="Summary of Fiscal Transactions 2017-18",
                                 height=700,
                                 width=700,
+                                labels={
+                                    "Name": "Name",
+                                    "parent": "Classified under",
+                                    "Values": "Amount in Rupees",
+                                    "labels": "id",
+                                },
                                 template="ggplot2",
-                                hover_name='Values',
+                                #hover_name='Values',
                             ),
                         ),
                         html.P(
