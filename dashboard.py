@@ -21,7 +21,7 @@ colors = {
     'text': '#092859'
 }
 
-data = pd.read_csv("C://Users//User//Documents//fullsample")
+#data = pd.read_csv("C://Users//User//Documents//fullsample")
 
 tab_e = pd.read_csv(DATA_PATH.joinpath("data.csv"), engine="python")
 tab_r = pd.read_csv(DATA_PATH.joinpath("receipts.csv"), engine="python")
@@ -29,12 +29,12 @@ summary = pd.read_csv(DATA_PATH.joinpath("summary.csv"), engine="python")
 summary2 = pd.read_csv(DATA_PATH.joinpath("summary2.csv"), engine="python")
 break_down = pd.read_csv(DATA_PATH.joinpath("breakdown.csv"), engine="python")
 
-lang1_subs = data.LANG1_SUB_NAME.unique()
-school_type = data.SCHOOL_TYPE.unique()
-dist = data.DISTRICT_NAME.unique()
-paper_lst = ["LANG1_SUB_NAME", "LANG2_SUB_NAME", "LANG3_SUB_NAME",
-             "SUB1_SUB_NAME", "SUB2_SUB_NAME", "SUB3_SUB_NAME",
-             "SUB4_SUB_NAME", "SUB5_SUB_NAME"]
+# lang1_subs = data.LANG1_SUB_NAME.unique()
+# school_type = data.SCHOOL_TYPE.unique()
+# dist = data.DISTRICT_NAME.unique()
+# paper_lst = ["LANG1_SUB_NAME", "LANG2_SUB_NAME", "LANG3_SUB_NAME",
+#              "SUB1_SUB_NAME", "SUB2_SUB_NAME", "SUB3_SUB_NAME",
+#              "SUB4_SUB_NAME", "SUB5_SUB_NAME"]
 
 app.layout = html.Div(
     [
