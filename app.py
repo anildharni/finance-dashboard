@@ -66,8 +66,9 @@ app.layout = html.Div(
                                     "labels": "id",
                                 },
                                 color="Section",
+                                color_discrete_sequence=px.colors.diverging.Tropic[1:3]+['#229e8a']
                                 #color_discrete_sequence=px.colors.sequential.Mint[3:],
-                                color_discrete_sequence=px.colors.sequential.dense[1:],
+                                # color_discrete_sequence=px.colors.sequential.ice[5:], #almost finalised
                                 #color="Section",
                                 #color_discrete_sequence=px.colors.qualitative.Pastel,
                                 # template="seaborn",
@@ -143,7 +144,7 @@ app.layout = html.Div(
                                 },
                                 #template="ggplot2",
                                 color="Section",
-                                color_discrete_sequence=px.colors.sequential.Brwnyl[1:],
+                                color_discrete_sequence=px.colors.sequential.Brwnyl[1:], #finished
                                 #hover_name='Values',
                             ),
                         ),
