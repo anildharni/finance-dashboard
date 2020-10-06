@@ -15,6 +15,7 @@ DATA_PATH = BASE_PATH.joinpath("data").resolve()
 # external_stylesheets = ['https://codepen.io/chriddyp/pen/bWLwgP.css']
 app = dash.Dash(__name__)
 server=app.server
+app.title = 'SFR Dashboard'
 bar_colors = ['#F5CDA7', '#FAA381', '#C9DBBA', '#99C5B5', '#899E8B', '#60935D', '#706C61', '#DCDBA8']
 # bar_colors[1] = 'crimson'
 colors = {
@@ -376,11 +377,11 @@ def set_cities_value(available_options):
 
 
 # print(break_down["Revenue Receipts"]),print(break_down.iloc[:,1])
-r = ["Revenue Receipts", "Central tax transfers", "State's Own revenue"]
-q = "Revenue Receipts"
-print(break_down[r[0]])
-print([q])
-print((len(r)))
+# r = ["Revenue Receipts", "Central tax transfers", "State's Own revenue"]
+# q = "Revenue Receipts"
+# print(break_down[r[0]])
+# print([q])
+# print((len(r)))
 
 
 @app.callback(dash.dependencies.Output("breakdown", "figure"),
@@ -443,4 +444,5 @@ def update_graph(rad, srad):
 
 
 if __name__ == '__main__':
-    app.run_server(debug=True, port=8049)
+    app.run_server(debug=False)
+    #app.run_server(debug=True, port=8049)
