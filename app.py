@@ -56,7 +56,7 @@ app.layout = html.Div(
                                 summary,
                                 path=['Type', 'Section', 'Name'],
                                 values='Values',
-                                title="Summary of Fiscal Transactions 2016-17",
+                                title="Summary of Fiscal Transactions 2017-18",
                                 height=700,
                                 width=700,
                                 labels={
@@ -93,14 +93,26 @@ app.layout = html.Div(
                                 #                                   # 'xgridoff', 'ygridoff', 'gridon', 'none'
                             ),
                         ),
+                        html.Div(
+                        [
                         html.P(
-                            "This Chart provides a broad perspective of the finances of the Government of Karnataka during"
-                            " 2016-17. It analyses important changes in major fiscal indicators compared to previous year."
-                            " This Analysis is based on the finance accounts and information obtained from the state government",
-                            style={
+                            "This set of sunburst charts captures a snapshot of the finances of the Government of Karnataka during"
+                            " 2017-18 and 2018-19. It analyses important changes in major fiscal indicators vis-à-vis the other."
+                            " This Analysis is based on the finance accounts and information obtained from the Government of Karnataka."
+                            " Click on the chart to explore further.",
+                        ),
+                        html.Li("Revenue receipts grew by 17,979.01 crore, about 12% compared to previous year"),
+                        html.Li("Revenue expenditure increased by 21,817.53 crore, about 15%"),
+                        html.Li("Capital outlay increased by 3,992.56 crore, about 13 per cent, increase was mainly under"
+                         "Economic Services Sector (3,025.80 crore, 14 per cent) and Social Services Sector (1,116.80"
+                         "crore, 13 per cent) and off-set by decrease under General Services Sector (150.04 crore, 15 per cent)"),
+                        html.Li("Recoveries of Loans and Advances decreased by 105.70 crore (77 per cent) mainly due"
+                         "to less recovery of loans under 7615-200-Miscellaneous Loans during 2018-19.  The"
+                          "disbursement of Loans and Advances decreased by 605 crore (12 per cent)"),
+                        ], style={
                                 "padding": "30px"
                             }
-                        ),
+                        )
                     ],
                     className="six columns card"
                 ),
@@ -116,7 +128,7 @@ app.layout = html.Div(
                                 summary2,
                                 path=['Type', 'Section', 'Name'],
                                 values='Values',
-                                title="Summary of Fiscal Transactions 2017-18",
+                                title="Summary of Fiscal Transactions 2018-19",
                                 height=700,
                                 width=700,
                                 labels={
@@ -129,14 +141,26 @@ app.layout = html.Div(
                                 #hover_name='Values',
                             ),
                         ),
-                        html.P(
-                            "This Chart provides a broad perspective of the finances of the Government of Karnataka during"
-                            " 2017-18. It analyses important changes in major fiscal indicators of year 2017-18"
-                            " This Analysis is based on the finance accounts obtained from the state government",
-                            style={
+                        html.Div(
+                        [
+                        html.Li("Public Account receipts increased by 37,144.56 crore (19 per cent) and"
+                        " disbursements by 39,792.96 crore (20 per cent); and"),
+                        html.Li("Public Debt receipts (excluding ways and means advances) increased by 16,792.20"
+                         "crore (67 per cent) and repayments increased by 2,813.46 crore (34 per cent)."
+                         "The increase in Public Debt receipts was mainly due to increase in Internal Debt of the State"
+                          "by 75 per cent over the previous year"),
+                        html.Li("Miscellaneous Capital Receipts decreased from 3.70 crore in 2017-18 to"
+                        "-5.51 crore in 2018-19 due to retirement of capital/disinvestment of co-operative "
+                        "societies/bank (3.29 crore) and refund of Earnest Money Deposit of 8.80 crore to Karnataka "
+                        "Industrial Area Development Board (KIADB)"),
+                        html.Li("Cash balance of the State Government decreased by 4,180.18 crore (16 per cent). "
+                        "Though there is decrease in cash balance over the previous year, in view of high cash balance,"
+                        " it is suggested that Government may consider utilising their existing balances before "
+                        "resorting to fresh borrowings"),
+                        ], style={
                                 "padding": "30px"
                             }
-                        ),
+                        )
                     ],
                     className="six columns card"
                 )
