@@ -171,7 +171,7 @@ app.layout = html.Div(
             className="row",
             children=[
                 html.Div(
-                    className="nine columns card",
+                    className="eight columns card",
                     children=[
                         dcc.Dropdown(id="outlay",
                                      options=[{'label': i, 'value': i} for i in tab_e.columns[1:]],
@@ -199,22 +199,35 @@ app.layout = html.Div(
                     style={"padding": 30}
                 ),
                 html.Div(
-                    className="two columns",
-                    children=html.P(
-                        "Expenditure over the years is on Y axis. Total outlay in 2018-19 is 2,24,000 crores"
-                        "and gender budget expenditure is 1,02,792 crores"
-                        , style={"padding": 30}
-                        )
-                )
+                    className="four columns card",
+                    children=[
+                        html.P(
+                        "State had created the Gender budget cell(January 2007) and gender budgeting was introduced"
+                         " in 2007-08. The trends in Gender budget outlay and expenditure, Budget outlay and expenditure "
+                         "category A and category B schemes is shown in the chart 'comparison of expenditure over years'.",
+                   ),
+                    html.Li(
+                           "The total expenditure during 2014-15 to 2018-19 is more than the outlay except during"
+                          " 2014-15 and 2017-18.  The decreasing proportion of the outlay vis-a-vis total outlay from"
+                          " 50 per cent in 2014-15 to 39 per cent in 2018-19 is a matter of concern."),
+                    html.Li(
+                           "There was hardly any change in the allocation of Category A schemes in all the four years."
+                           "  In 2018-19, there was a decrease in allocation by 21 per cent when compared to the "
+                           "previous year.  This was due to drastic reduction in allocation in schemes like Ashraya "
+                           "Basava Vasathi, Stree Shakti, Sabala etc.  Though the allocation increased under "
+                           "Category B, the increase was marginal (2%)")
+                ],style={
+                        'padding':30
+                        }
+                ),
             ]
         ),
         # span
         html.Br(),
         # text
         html.P(
-            "We have receipts on side and we can see detailed granular analysis of receipts on the other side"
-            "On the right the figure contains chained callbacks where input in dropdown is being dynamically updated"
-            "We can compare both",
+            "We have receipts on side and we can see detailed granular analysis of receipts on the other side. "
+            "On the right the figure contains chained callbacks where input in dropdown is being dynamically updated. ",
             style={
                 'padding': "30px"
             }
