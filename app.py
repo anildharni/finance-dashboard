@@ -80,7 +80,7 @@ app.layout = html.Div(
                                 # branchvalues="remainder",
                                 # hoverinfo=None,
                                 # hover_name='Values',
-                                # hover_data={"Name": False, "Type":False, "Section":False}
+                                # hover_data={"Name": False, "Type":False, "Section":False},
                                 # color="Unarmed",
                                 # color_discrete_sequence=px.colors.qualitative.Pastel,
                                 # maxdepth=-1,                        # set the sectors rendered. -1 will render all levels in the hierarchy
@@ -237,7 +237,7 @@ app.layout = html.Div(
             "On the right the figure contains chained callbacks where input in dropdown is being dynamically updated. ",
             style={
                 'padding': "30px"
-            }
+            },
         ),
         # row3
         html.Div(
@@ -272,22 +272,25 @@ app.layout = html.Div(
                 html.Div(
                     className="six columns card",
                     children=[
-                        dcc.Dropdown(id="subradio",
-                                     multi=True,
-                                     ),
                         dcc.RadioItems(id="radio",
                                        options=[
                                            {'label': ' Capital Receipts', 'value': 'cap'},
                                            {'label': ' Revenue Receipts', 'value': 'rev'},
                                            {'label': ' Public Account Receipts(Net)', 'value': 'pub'}
                                        ],
-                                       value='cap',
+                                       value='rev',
                                        labelStyle={
                                            "display": "inline-block",
                                            "margin-left": "20px",
                                            "cursor": "pointer"
+                                       },
+                                       style={
+                                            "box-shadow": "0 1px 2px 0 rgba(0,0,0,.15)",
                                        }
                                        ),
+                        dcc.Dropdown(id="subradio",
+                                     multi=True,
+                                     ),
                         dcc.Graph(id="breakdown",
                                   config={
                                       'modeBarButtonsToRemove': ['lasso2d'],
@@ -416,7 +419,7 @@ def update_date_dropdown(rdio):
     dash.dependencies.Output('subradio', 'value'),
     [dash.dependencies.Input('subradio', 'options')]
 )
-def set_cities_value(available_options):
+def update_subradio_val(available_options):
     return [available_options[0]['value']]
 
 
