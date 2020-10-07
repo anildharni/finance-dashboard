@@ -23,6 +23,47 @@ colors = {
     'text': '#092859'
 }
 
+#remove later
+#df1 = pd.read_csv('https://raw.githubusercontent.com/plotly/datasets/718417069ead87650b90472464c7565dc8c2cb1c/sunburst-coffee-flavors-complete.csv')
+#print(df1.head(20))
+
+df= pd.read_csv(DATA_PATH.joinpath("treemap.csv"), engine="python")
+levels= ["Root","Type","Sub Type"]
+color_columns=["Values","2018-19"]
+value_column=["2018-19"]
+def build_hierarchical_dataframe(df, levels, value_column, color_columns=None):
+    """
+    Build a hierarchy of levels for Sunburst or Treemap charts.
+
+    Levels are given starting from the bottom to the top of the hierarchy,
+    ie the last level corresponds to the root.
+    """
+    df_all_trees = pd.DataFrame(columns=['id', 'parent', 'value', 'color'])
+    for i, level in enumerate(levels):
+        df_tree = pd.DataFrame(columns=['id', 'parent', 'value', 'color'])
+        dfg = df.groupby(levels[i:]).sum()
+        dfg = dfg.reset_index()
+        df_tree['id'] = dfg[level].copy()
+        if i < len(levels) - 1:
+            df_tree['parent'] = dfg[levels[i+1]].copy()
+        else:
+            df_tree['parent'] = 'total'
+        df_tree['value'] = dfg[value_column]
+        df_tree['color'] = dfg[color_columns[0]] / dfg[color_columns[1]]
+        df_all_trees = df_all_trees.append(df_tree, ignore_index=True)
+    total = pd.Series(dict(id='total', parent='',
+                              value=df[value_column].sum(),
+                              color=df[color_columns[0]].sum() / df[color_columns[1]].sum()))
+    df_all_trees = df_all_trees.append(total, ignore_index=True)
+    return df_all_trees
+
+df_all_trees = build_hierarchical_dataframe(df, levels, value_column, color_columns)
+
+#print(df_all_trees.iloc[:,1:3].head(15))
+
+
+#till here remove
+
 #data = pd.read_csv("C://Users//User//Documents//fullsample")
 
 tab_e = pd.read_csv(DATA_PATH.joinpath("data.csv"), engine="python")
@@ -30,6 +71,7 @@ tab_r = pd.read_csv(DATA_PATH.joinpath("receipts.csv"), engine="python")
 summary = pd.read_csv(DATA_PATH.joinpath("summary.csv"), engine="python")
 summary2 = pd.read_csv(DATA_PATH.joinpath("summary2.csv"), engine="python")
 break_down = pd.read_csv(DATA_PATH.joinpath("breakdown.csv"), engine="python")
+treemapf = pd.read_csv(DATA_PATH.joinpath("treemap_fin.csv"), engine="python")
 
 # lang1_subs = data.LANG1_SUB_NAME.unique()
 # school_type = data.SCHOOL_TYPE.unique()
@@ -45,7 +87,6 @@ app.layout = html.Div(
         ),
         html.Div(
             [
-
                 html.Div(
                     [
                     dcc.Graph(
@@ -99,8 +140,8 @@ app.layout = html.Div(
                             ),
                         ),
                         html.Div(
-                        [
-                        html.P(
+                            [
+                                html.P(
                             "This set of sunburst charts captures a snapshot of the finances of the Government of Karnataka during"
                             " 2017-18 and 2018-19. It analyses important changes in major fiscal indicators vis-à-vis the other."
                             " This Analysis is based on the finance accounts and information obtained from the Government of Karnataka."
@@ -123,7 +164,6 @@ app.layout = html.Div(
                 ),
                 html.Div(
                     [
-
                         dcc.Graph(
                             config={
                                 'displaylogo': False,
@@ -172,6 +212,43 @@ app.layout = html.Div(
                     className="six columns card"
                 )
             ], className="row",
+        ),
+        html.Div(
+            className="twelve columns card",
+            style={
+            #'padding':'30px'
+            },
+            children = [dcc.Graph(
+                            config={
+                                'displaylogo': False,
+                                'responsive': True
+                            },
+                            figure=px.treemap(
+                                #summary,
+                                #path=['Type', 'Section', 'Name'],
+                                #values='Values',
+                                treemapf,
+                                path=['Root','Year',"Type","Sub Type","Minor Head"],
+                                values="Values",
+                                title="Snapshot of Karnataka finances between 2014-15 and 2018-19",
+                                height=800,
+                                #width=1420,
+                                labels={
+                                    "parent": "Classified under",
+                                    "Values": "Amount in Rupees",
+                                    "labels": "id",
+                                },
+                                template="seaborn",
+                                color="Year",
+                                #color_discrete_sequence=px.colors.sequential.PuBuGn[1::], #finished
+                                #hover_name='Values',
+                            ).update_layout(
+                                            font_family="Times New Roman",
+                                            showlegend = False,
+                                            font_size=15,
+                                            uniformtext_minsize=15
+                                        )
+                        )]
         ),
         # Graph 1
         html.Div(
@@ -301,7 +378,39 @@ app.layout = html.Div(
                     ], style={"padding": 30}
                 )
             ]
-        )
+        ),
+        #row 4
+        html.Div(
+            className="row",
+            children=[
+                html.Div(
+                    className="card",
+                    children=[
+                        dcc.Checklist(id="types",
+                                      options=[
+                                          {'label': " " + i, 'value': i} for i in
+                                          tab_e.iloc[0:, 0].unique()
+                                      ],
+                                      value=[tab_e.iloc[4, 0], tab_e.iloc[3, 0], tab_e.iloc[1, 0]],
+                                      labelStyle={
+                                          "display": "inline-block",
+                                          "margin-right": "20px",
+                                          "cursor": "pointer"}
+                                      ),
+                        dcc.Graph(id="pie",
+                                  config={
+                                      'modeBarButtonsToRemove': ['lasso2d'],
+                                      'displaylogo': False,
+                                      # 'responsive': True
+                                  },
+                                  )
+                    ],
+                    style={"padding": 30}
+                ),
+                ],style={
+                        'padding':30
+                        }
+                ),
     ], className="subpage1"
 )
 
@@ -412,7 +521,13 @@ def update_graph(rec, lst):
     [dash.dependencies.Input('radio', 'value')]
 )
 def update_date_dropdown(rdio):
-    return [{'label': i, 'value': i} for i in break_down.columns[1:]]
+    if rdio=="rev":
+        return [{'label': i, 'value': i} for i in break_down.columns[1:4]]
+    elif rdio=="pub":
+        return [{'label': i, 'value': i} for i in break_down.columns[4:9]]
+    elif rdio=="cap":
+        return [{'label': i, 'value': i} for i in break_down.columns[9:]]
+
 
 
 @app.callback(
@@ -423,19 +538,10 @@ def update_subradio_val(available_options):
     return [available_options[0]['value']]
 
 
-# print(break_down["Revenue Receipts"]),print(break_down.iloc[:,1])
-# r = ["Revenue Receipts", "Central tax transfers", "State's Own revenue"]
-# q = "Revenue Receipts"
-# print(break_down[r[0]])
-# print([q])
-# print((len(r)))
-
-
 @app.callback(dash.dependencies.Output("breakdown", "figure"),
               [dash.dependencies.Input("radio", "value"),
                dash.dependencies.Input("subradio", "value")])
 def update_graph(rad, srad):
-    print(rad, srad)
     if len(srad) <= 1:
         dat1 = [dict(
             x=break_down.iloc[:, 0],
@@ -488,6 +594,55 @@ def update_graph(rad, srad):
                  )
              )
              })
+
+@app.callback(dash.dependencies.Output("pie", "figure"),
+              [dash.dependencies.Input("types", "value")])
+def update_graph(rec, lst):
+    if len(rec) <= 1:
+        dat1 = [dict(x=lst,
+                     y=tab_r.iloc[:][rec[0]],
+                     type="bar",
+                     mode="markers",
+                     width=0.5,
+                     name=rec[0])]
+        dat2 = []
+    else:
+        dat1 = [dict(x=lst,
+                     y=tab_r.iloc[:][rec[0]],
+                     type="bar",
+                     mode="markers",
+                     name=rec[0])]
+        dat2 = [dict(x=lst,
+                     y=tab_r.loc[lst, :].iloc[:][item],
+                     type="bar",
+                     mode="markers",
+                     marker=go.bar.Marker(
+                         color=bar_colors[rec.index(item) - 1]
+                     ),
+                     name=item) for item in rec[1:]]
+    return (
+        {"data": dat1 + dat2,
+         "layout": go.Layout(
+             title="Comparison of Receipts over years",
+             xaxis={
+                 'title': 'Years',
+                 "showgrid": True,
+                 "showticklabels": True
+             },
+             yaxis={
+                 'title': 'Variables selected in dropdown',
+                 "showgrid": True,
+                 "showticklabels": True,
+                 "tickformat": ",g"
+             },
+             legend=dict(
+                 y=-0.2,
+                 x=0.1,
+                 orientation='h'
+             )
+         )
+         }
+    )
 
 
 if __name__ == '__main__':
