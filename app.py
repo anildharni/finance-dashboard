@@ -27,10 +27,10 @@ colors = {
 #df1 = pd.read_csv('https://raw.githubusercontent.com/plotly/datasets/718417069ead87650b90472464c7565dc8c2cb1c/sunburst-coffee-flavors-complete.csv')
 #print(df1.head(20))
 
-df= pd.read_csv(DATA_PATH.joinpath("treemap.csv"), engine="python")
-levels= ["Root","Type","Sub Type"]
-color_columns=["Values","2018-19"]
-value_column=["2018-19"]
+#df= pd.read_csv(DATA_PATH.joinpath("treemap.csv"), engine="python")
+#levels= ["Root","Type","Sub Type"]
+#color_columns=["Values","2018-19"]
+#value_column=["2018-19"]
 def build_hierarchical_dataframe(df, levels, value_column, color_columns=None):
     """
     Build a hierarchy of levels for Sunburst or Treemap charts.
@@ -57,7 +57,7 @@ def build_hierarchical_dataframe(df, levels, value_column, color_columns=None):
     df_all_trees = df_all_trees.append(total, ignore_index=True)
     return df_all_trees
 
-df_all_trees = build_hierarchical_dataframe(df, levels, value_column, color_columns)
+#df_all_trees = build_hierarchical_dataframe(df, levels, value_column, color_columns)
 
 #print(df_all_trees.iloc[:,1:3].head(15))
 
