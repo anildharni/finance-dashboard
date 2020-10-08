@@ -244,7 +244,7 @@ app.layout = html.Div(
                 html.Div(
                     children=[
                         html.P(
-                            "All the major financial parameter of karnataka between the years 2014 and 2019 is"
+                            "All the major financial parameters of karnataka between the years 2014 and 2019 are"
                             " represented in this treemap visualisation. Treemaps are ideal for displaying large "
                             "amounts of hierarchically structured (tree-structured)data.The sizes of the rectangles"
                             " indicate that Public Account Receipts has the highest share while capital receipts are"
