@@ -43,7 +43,7 @@ def get_header(app):
                         className="six columns main-title",
                         style={
                             "margin-left": "50px",
-                            "margin-top":"30px"
+                            "margin-top": "30px"
                         }
                     ),
                     html.Div(
