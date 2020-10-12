@@ -730,7 +730,7 @@ def update_graph(olay, lst):
     return (
         {"data": dat1 + dat2,
          "layout": go.Layout(
-             title="Financial assistance to local bodies and other institutions",
+             title="Different taxes and their shares",
              xaxis={
                  'title': 'Years (Expenditure in crs.)',
                  "showgrid": True,
