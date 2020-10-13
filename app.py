@@ -77,19 +77,16 @@ break_down = pd.read_csv(DATA_PATH.joinpath("breakdown.csv"), engine="python")
 treemapf = pd.read_csv(DATA_PATH.joinpath("treemap_fin.csv"), engine="python")
 ntrpie = pd.read_csv(DATA_PATH.joinpath("nontaxrevpie.csv"), engine="python")
 centaxtrf = pd.read_csv(DATA_PATH.joinpath("centaxtrf.csv"), engine="python")
-
-# lang1_subs = data.LANG1_SUB_NAME.unique()
-# school_type = data.SCHOOL_TYPE.unique()
-# dist = data.DISTRICT_NAME.unique()
-# paper_lst = ["LANG1_SUB_NAME", "LANG2_SUB_NAME", "LANG3_SUB_NAME",
-#              "SUB1_SUB_NAME", "SUB2_SUB_NAME", "SUB3_SUB_NAME",
-#              "SUB4_SUB_NAME", "SUB5_SUB_NAME"]
+approp = pd.read_csv(DATA_PATH.joinpath("approp.csv"), engine="python")
+corp = pd.read_csv(DATA_PATH.joinpath("corp.csv"), engine="python")
+exp = pd.read_csv(DATA_PATH.joinpath("expenditure.csv"), engine="python")
 
 app.layout = html.Div(
     [
         html.Div(
             titlebar(app),
         ),
+        # First Sunburst Graphs
         html.Div(
             [
                 html.Div(
@@ -115,10 +112,7 @@ app.layout = html.Div(
                                 color_discrete_sequence=px.colors.diverging.Tropic[1:3] + ['#229e8a']
                                 # color_discrete_sequence=px.colors.sequential.Mint[3:],
                                 # color_discrete_sequence=px.colors.sequential.ice[5:], #almost finalised
-                                # color="Section",
                                 # color_discrete_sequence=px.colors.qualitative.Pastel,
-                                # template="seaborn",
-                                # color="Name",
                                 # color_continuous_scale=px.colors.sequential.BuGn,
                                 # range_color=[10,15],
                                 # hover_data=None,
@@ -133,7 +127,6 @@ app.layout = html.Div(
                                 # color="Victim's age",
                                 # color_continuous_scale=px.colors.sequential.BuGn,
                                 # range_color=[10,100],
-
                                 # branchvalues="total",               # or 'remainder'
                                 # hover_name="Unarmed",
                                 # # hover_data={'Unarmed': False},    # remove column name from tooltip  (Plotly version >= 4.8.0)
@@ -141,15 +134,19 @@ app.layout = html.Div(
                                 # template='ggplot2',               # 'ggplot2', 'seaborn', 'simple_white', 'plotly',
                                 #                                   # 'plotly_white', 'plotly_dark', 'presentation',
                                 #                                   # 'xgridoff', 'ygridoff', 'gridon', 'none',
-                                # template='ggplot2'
                             ),
                         ),
                         html.Div(
                             [
                                 html.P(
-                                    "This set of sunburst charts captures a snapshot of the finances of the Government of Karnataka during"
-                                    " 2017-18 and 2018-19. It visualises important changes in major fiscal indicators vis-à-vis the other"
-                                    " and is based on the finance accounts and information obtained from the Government of Karnataka."
+                                    ["This set of sunburst charts captures a snapshot of the finances of"
+                                     " the Government of Karnataka during 2017-18 and 2018-19(",
+                                     html.A('ref.table 1.1 of state finance report',
+                                            href='http://cedar.gov.in:8055/finances/introduction',
+                                            target='_blank'),
+                                     "). It visualises important changes in major fiscal"
+                                     " indicators vis-à-vis the other and is based on the finance accounts and information "
+                                     "obtained from the Government of Karnataka."]
                                 )
                             ], style={
                                 "padding": "30px"
@@ -204,9 +201,30 @@ app.layout = html.Div(
             className="twelve columns card",
             children=[
                 html.Div(
-                    style={
-                        'padding': '30px'
-                    },
+                    children=[
+                        html.P(
+                            ["All the major financial parameters of karnataka between the years 2014 and 2019 are"
+                            " represented in the below treemap visualisation (",
+                            html.A('ref Appendix 1.4 of state finance report',
+                                            href='http://cedar.gov.in:8055/appendix/appendix14',
+                                            target='_blank'),
+                            "). Treemaps are ideal for displaying large "
+                            "amounts of hierarchically structured (tree-structured)data.The sizes of the rectangles"
+                            " indicate that Public Account Receipts has the highest share while capital receipts are"
+                            " the lowest.The rectangles are nested. Each rectangle that represents a "
+                            "receipts/expenditure consists of rectangles representing Years within that type of "
+                            "receipt/expenditure and it goes few more levels further down. To take a closer look at"
+                            " a certain part of the treemap, you can navigate from a higher hierarchy level to a lower"
+                            " one. Click on the hierarchy header of the level you want to navigate to."
+                            "The uppermost hierarchy header displays the hierarchy levels from the top level to the"
+                            " level you are currently viewing. To navigate upwards in the hierarchy, click on the level"
+                            " you want to navigate to."])
+                    ], style={
+                        "margin-left": "100px",
+                        "margin-right": "100px"
+                    }
+                ),
+                html.Div(
                     children=[
                         dcc.Graph(
                             config={
@@ -214,9 +232,6 @@ app.layout = html.Div(
                                 'responsive': True
                             },
                             figure=px.treemap(
-                                # summary,
-                                # path=['Type', 'Section', 'Name'],
-                                # values='Values',
                                 treemapf,
                                 path=['Root', 'Year', "Type", "Sub Type", "Minor Head"],
                                 values="Values",
@@ -241,94 +256,9 @@ app.layout = html.Div(
                         )
                     ]
                 ),
-                html.Div(
-                    children=[
-                        html.P(
-                            "All the major financial parameters of karnataka between the years 2014 and 2019 are"
-                            " represented in this treemap visualisation. Treemaps are ideal for displaying large "
-                            "amounts of hierarchically structured (tree-structured)data.The sizes of the rectangles"
-                            " indicate that Public Account Receipts has the highest share while capital receipts are"
-                            " the lowest.The rectangles are nested. Each rectangle that represents a "
-                            "receipts/expenditure consists of rectangles representing Years within that type of "
-                            "receipt/expenditure and it goes few more levels further down. To take a closer look at"
-                            " a certain part of the treemap, you can navigate from a higher hierarchy level to a lower"
-                            " one. Click on the hierarchy header of the level you want to navigate to."
-                            "The uppermost hierarchy header displays the hierarchy levels from the top level to the"
-                            " level you are currently viewing. To navigate upwards in the hierarchy, click on the level"
-                            " you want to navigate to.")
-                    ], style= {
-                        "margin-left":"100px",
-                        "margin-right":"100px",
-                        "padding-bottom":"30px"
-                    }
-                )
             ]
         ),
-        # Graph 1
-        html.Div(
-            className="row",
-            children=[
-                html.Div(
-                    className="eight columns card",
-                    children=[
-                        dcc.Dropdown(id="outlay",
-                                     options=[{'label': i, 'value': i} for i in tab_e.columns[1:]],
-                                     value=[tab_e.columns[1], tab_e.columns[2], tab_e.columns[3]],
-                                     multi=True),
-                        dcc.Checklist(id="year_list",
-                                      options=[
-                                          {'label': " " + i, 'value': i} for i in
-                                          tab_e.iloc[0:, 0].unique()
-                                      ],
-                                      value=[tab_e.iloc[4, 0], tab_e.iloc[3, 0], tab_e.iloc[2, 0]],
-                                      labelStyle={
-                                          "display": "inline-block",
-                                          "margin-right": "20px",
-                                          "cursor": "pointer"}
-                                      ),
-                        dcc.Graph(id="year_vs_everything",
-                                  config={
-                                      'modeBarButtonsToRemove': ['lasso2d'],
-                                      'displaylogo': False,
-                                      # 'responsive': True
-                                  },
-                                  )
-                    ],
-                    style={"padding": 30}
-                ),
-                html.Div(
-                    className="four columns card",
-                    children=[
-                        html.Li(
-                            " The figures under assistance to ULBs differs from those shown in the earlier reports before 2014-15"
-                            " on account of inclusion of devolutions under the Minor Head 200 – Other compensations and"
-                            " assignment.",
-                        ),
-                        html.Li("Out of the total devolution of `35,898 crore to PRIs during 2018-19, "
-                                "14,709 crore (41 per cent) were towards salaries as the State Government’s"
-                                " functions viz., education, water supply and sanitation, housing, health and "
-                                "family welfare etc., were transferred to PRIs"),
-                        html.Li("The assistance to ULBs decreased by 1,064 crore over the previous year.  The "
-                                "decrease was mainly due to short release of funds to Municipal Corporations, "
-                                "Municipalities/Municipal Councils and Nagara Panchayats/ Notified Area Committees by "
-                                "23%, 2% and 3% respectively.  ")
-                    ], style={
-                        'padding': 30
-                    }
-                ),
-            ]
-        ),
-        # span
-        html.Br(),
-        # text
-        html.P(
-            "We have receipts on side and we can see detailed granular analysis of receipts on the other side. "
-            "On the right the figure contains chained callbacks where input in dropdown is being dynamically updated. ",
-            style={
-                'padding': "30px"
-            },
-        ),
-        # row3
+        # receipts graphs
         html.Div(
             className="row",
             children=[
@@ -391,7 +321,7 @@ app.layout = html.Div(
                 )
             ]
         ),
-        # row 4
+        # Non tax revenue pie
         html.Div(
             className="row card",
             children=[
@@ -425,6 +355,95 @@ app.layout = html.Div(
                 )
             ]
         ),
+        # Expenditure graph
+        html.Div(
+            [
+                html.Div(
+                    className="twelve columns card",
+                    children=[
+                        dcc.Dropdown(id="exp",
+                                     options=[{'label': i, 'value': i} for i in exp.columns[1:]],
+                                     value=[exp.columns[1], exp.columns[2], exp.columns[3],
+                                            exp.columns[4], exp.columns[5], exp.columns[6], exp.columns[7],
+                                            exp.columns[8]],
+                                     multi=True,
+                                     style={
+                                         'margin-right': '600px'
+                                     }),
+                        dcc.Checklist(id="year_list_exp",
+                                      options=[{'label': " " + i, 'value': i} for i in exp.iloc[0:, 0].unique()],
+                                      value=[exp.iloc[2, 0], exp.iloc[3, 0], exp.iloc[4, 0]],
+                                      labelStyle={
+                                          "display": "inline-block",
+                                          "margin-right": "20px",
+                                          "cursor": "pointer"
+                                      }
+                                      ),
+                        dcc.Graph(id="year_vs_exp",
+                                  config={
+                                      'modeBarButtonsToRemove': ['lasso2d'],
+                                      'displaylogo': False,
+                                      # 'responsive': True
+                                  }
+                                  ),
+                    ],
+                    style={"padding": 30}
+                )]),
+        # financial assistance to local bodies
+        html.Div(
+            className="row",
+            children=[
+                html.Div(
+                    className="eight columns card",
+                    children=[
+                        dcc.Dropdown(id="outlay",
+                                     options=[{'label': i, 'value': i} for i in tab_e.columns[1:]],
+                                     value=[tab_e.columns[1], tab_e.columns[2], tab_e.columns[3]],
+                                     multi=True),
+                        dcc.Checklist(id="year_list",
+                                      options=[
+                                          {'label': " " + i, 'value': i} for i in
+                                          tab_e.iloc[0:, 0].unique()
+                                      ],
+                                      value=[tab_e.iloc[4, 0], tab_e.iloc[3, 0], tab_e.iloc[2, 0]],
+                                      labelStyle={
+                                          "display": "inline-block",
+                                          "margin-right": "20px",
+                                          "cursor": "pointer"}
+                                      ),
+                        dcc.Graph(id="year_vs_everything",
+                                  config={
+                                      'modeBarButtonsToRemove': ['lasso2d'],
+                                      'displaylogo': False,
+                                      # 'responsive': True
+                                  },
+                                  )
+                    ],
+                    style={"padding": 30}
+                ),
+                html.Div(
+                    className="four columns card",
+                    children=[
+                        html.Li(
+                            " The figures under assistance to ULBs differs from those shown in the earlier reports before 2014-15"
+                            " on account of inclusion of devolutions under the Minor Head 200 – Other compensations and"
+                            " assignment.",
+                        ),
+                        html.Li("Out of the total devolution of `35,898 crore to PRIs during 2018-19, "
+                                "14,709 crore (41 per cent) were towards salaries as the State Government’s"
+                                " functions viz., education, water supply and sanitation, housing, health and "
+                                "family welfare etc., were transferred to PRIs"),
+                        html.Li("The assistance to ULBs decreased by 1,064 crore over the previous year.  The "
+                                "decrease was mainly due to short release of funds to Municipal Corporations, "
+                                "Municipalities/Municipal Councils and Nagara Panchayats/ Notified Area Committees by "
+                                "23%, 2% and 3% respectively.  ")
+                    ], style={
+                        'padding': 30
+                    }
+                ),
+            ]
+        ),
+        # central tax transfers
         html.Div(
             className="row",
             children=[
@@ -480,11 +499,94 @@ app.layout = html.Div(
                 )
             ]
         ),
+        # Sunburst appropriation accounts
+        html.Div(
+            [
+                html.Div(
+                    [
+                        dcc.Graph(
+                            config={
+                                'displaylogo': False,
+                                'responsive': True
+                            },
+                            figure=px.sunburst(
+                                approp,
+                                path=['Type', 'SubType', 'Name'],
+                                values='Values',
+                                title="Appropriation Accounts",
+                                labels={
+                                    "Name": "Name",
+                                    "parent": "Classified under",
+                                    "Values": "Amount in Rupees",
+                                    "labels": "id",
+                                },
+                                height=800,
+                                # template="ggplot2",
+                                color="Type",
+                                color_discrete_map={'Voted': '#42b7b9',
+                                                    'Charged ': '#d39c83', },
+                                # color_discrete_map={'Revenue': '#d42424',
+                                #                     'Capital': '#d4a824',
+                                #                     'Loans and Advances':'#24d42d',
+                                #                     'Revenue ': '#24c8d4',
+                                #                     'Capital ': '#8e24d4',
+                                #                     'Public Debt Repayment':'#d4246d'},
+                                # color_discrete_sequence=px.colors.diverging.Tropic[1:],  # finished
+                                # hover_name='Values',
+                                # branchvalues="remainder"
+                            )
+                        ),
+                    ],
+                    className="six columns card",
+                ),
+                # Scatter plot of appendix 2.14
+                html.Div(
+                    [
+                        dcc.Graph(
+                            config={
+                                'displaylogo': False,
+                                'responsive': True
+                            },
+                            figure=px.scatter(
+                                corp,
+                                x='Amount surrendered',
+                                y='Total Provision',
+                                log_y=True,
+                                log_x=True,
+                                size='No. of cases',
+                                color='Notation',
+                                hover_name="Grant No./Nomenclature",
+                                title="Cases of surrendered of funds in excess of five crore",
+                                height=800,
+                                color_discrete_map={'Below 50': '#3bd9db',
+                                                    'Above 50': '#e88456', },
+                                # labels={
+                                #    "Name": "Name",
+                                #    "parent": "Classified under",
+                                #   "Values": "Amount in Rupees",
+                                #    "labels": "id",
+                                # },
+                                # template="ggplot2",
+                                # color="SubType",
+                                # color_discrete_map={'Revenue': '#d42424',
+                                #                     'Capital': '#d4a824',
+                                #                     'Loans and Advances':'#24d42d',
+                                #                     'Revenue ': '#24c8d4',
+                                #                     'Capital ': '#8e24d4',
+                                #                     'Public Debt Repayment':'#d4246d'},
+                                # color_discrete_sequence=px.colors.diverging.Tropic[1:],  # finished
+                                # hover_name='Values',
+                                # branchvalues="remainder"
+                            ))
+                    ], className="six columns card"),
+            ]
+        ),
     ], className="subpage1"
 )
 
 tab_e.set_index('Year', inplace=True)
 tab_r.set_index('Year', inplace=True)
+exp.set_index('Year', inplace=True)
 centaxtrf.set_index('Particulars', inplace=True)
 
 
@@ -680,7 +782,7 @@ def update_graph(typs):
             'labels': typs,
             'values': ntrpie.set_index('column1').loc[typs].iloc[:, 0],
             'type': 'pie',
-            'hole': 0.4,
+            # 'hole': 0.4,
             'marker': {
                 'colors': ['#577590', '43aa8b', '90be6d', 'f9c74f', 'f8961e', 'f3722c', 'e07a5f',
                            "#4C3B4D", "#E94F37", "#320A28"]
@@ -738,6 +840,57 @@ def update_graph(olay, lst):
              },
              yaxis={
                  'title': 'Type of Institution',
+                 "showgrid": True,
+                 "showticklabels": True,
+                 "tickformat": ",g"
+             },
+             legend=dict(
+                 y=-0.2,
+                 x=0.1,
+                 orientation='h'
+             )
+         )
+         }
+    )
+
+
+@app.callback(dash.dependencies.Output("year_vs_exp", "figure"),
+              [dash.dependencies.Input("exp", "value"),
+               dash.dependencies.Input("year_list_exp", "value")])
+def update_graph(rec, lst):
+    if len(rec) <= 1:
+        dat1 = [dict(x=lst,
+                     y=exp.loc[lst, :].iloc[:][rec[0]],
+                     type="bar",
+                     mode="markers",
+                     width=0.5,
+                     name=rec[0])]
+        dat2 = []
+    else:
+        dat1 = [dict(x=lst,
+                     y=exp.loc[lst, :].iloc[:][rec[0]],
+                     type="bar",
+                     mode="markers",
+                     name=rec[0])]
+        dat2 = [dict(x=lst,
+                     y=exp.loc[lst, :].iloc[:][item],
+                     type="bar",
+                     mode="markers",
+                     marker=go.bar.Marker(
+                         color=bar_colors[rec.index(item) - 1]
+                     ),
+                     name=item) for item in rec[1:]]
+    return (
+        {"data": dat1 + dat2,
+         "layout": go.Layout(
+             title="Comparison of Expenditures over years",
+             xaxis={
+                 'title': 'Years',
+                 "showgrid": True,
+                 "showticklabels": True
+             },
+             yaxis={
+                 'title': 'Variables selected in dropdown',
                  "showgrid": True,
                  "showticklabels": True,
                  "tickformat": ",g"

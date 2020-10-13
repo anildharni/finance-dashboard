@@ -1,23 +1,21 @@
 Sl.No,Space,Type,Section,Name,Values
-1, ,Receipts,Revenue,Revenue,146999.65
-2, ,Receipts,Revenue,Tax revenue,87130.38
-3, ,Receipts,Revenue,Non-Tax revenue,6476.53
-4, ,Receipts,Revenue,Share of Union taxes,31751.96
-5, ,Receipts,Revenue,Grants-in-aid,21640.78
-6, ,Disbursements,Revenue,Revenue Expenditure,142482.33
-7, ,Disbursements,Revenue,General Services,34484.44
-8, ,Disbursements,Revenue,Social Services,58652.35
-9, ,Disbursements,Revenue,Economic Services,42855.78
-10, ,Disbursements,Revenue,Grants-in-aid,6489.76
-11, ,Receipts,Capital and others,Misc. Capital receipts,3.7
-12, ,Receipts,Capital and others,Capital Outlay,30666.76
-13, ,Receipts,Capital and others,Recoveries of Loans and Advances,136.93
-14, ,Receipts,Capital and others,Public debt,25121.86
-15, ,Receipts,Capital and others,Contingency Fund,0
-16, ,Receipts,Capital and others,Public Account,200615.43
-17, ,Disbursements,Capital and others,Opening Cash Balance,34353.58
-18, ,Disbursements,Capital and others,Loans and Advances disbursed,5092.22
-19, ,Disbursements,Capital and others,Repayment of public debt,8269.16
-20, ,Disbursements,Capital and others,Contingency Fund,0
-21, ,Disbursements,Capital and others,Public Account disbursements,194536.63
-22, ,Disbursements,Capital and others,Closing Cash Balance,26184.05
+1, ,Receipts,Revenue,Tax revenue,87130.38
+2, ,Receipts,Revenue,Non-Tax revenue,6476.53
+3, ,Receipts,Revenue,Share of Union taxes,31751.96
+4, ,Receipts,Revenue,Grants-in-aid,21640.78
+5, ,Disbursements,Revenue,General Services,34484.44
+6, ,Disbursements,Revenue,Social Services,58652.35
+7, ,Disbursements,Revenue,Economic Services,42855.78
+8, ,Disbursements,Revenue,Grants-in-aid,6489.76
+9, ,Receipts,Capital and others,Misc. Capital receipts,3.7
+10, ,Receipts,Capital and others,Capital Outlay,30666.76
+11, ,Receipts,Capital and others,Recoveries of Loans and Advances,136.93
+12, ,Receipts,Capital and others,Public debt,25121.86
+13, ,Receipts,Capital and others,Contingency Fund,0
+14, ,Receipts,Capital and others,Public Account,200615.43
+15, ,Disbursements,Capital and others,Opening Cash Balance,34353.58
+16, ,Disbursements,Capital and others,Loans and Advances disbursed,5092.22
+17, ,Disbursements,Capital and others,Repayment of public debt,8269.16
+18, ,Disbursements,Capital and others,Contingency Fund,0
+19, ,Disbursements,Capital and others,Public Account disbursements,194536.63
+20, ,Disbursements,Capital and others,Closing Cash Balance,26184.05
