@@ -136,22 +136,6 @@ app.layout = html.Div(
                                 #                                   # 'xgridoff', 'ygridoff', 'gridon', 'none',
                             ),
                         ),
-                        html.Div(
-                            [
-                                html.P(
-                                    ["This set of sunburst charts captures a snapshot of the finances of"
-                                     " the Government of Karnataka during 2017-18 and 2018-19(",
-                                     html.A('ref.table 1.1 of state finance report',
-                                            href='http://cedar.gov.in:8055/finances/introduction',
-                                            target='_blank'),
-                                     "). It visualises important changes in major fiscal"
-                                     " indicators vis-à-vis the other and is based on the finance accounts and information "
-                                     "obtained from the Government of Karnataka."]
-                                )
-                            ], style={
-                                "padding": "30px"
-                            }
-                        )
                     ],
                     className="six columns card"
                 ),
@@ -181,49 +165,33 @@ app.layout = html.Div(
                                 # hover_name='Values',
                             ),
                         ),
-                        html.Div(
-                            [
-                                "These visualisations have Receipts and Disbursements at its center and the data flows outward"
-                                " based on the sub classification. The classification ends at the outer-most node and "
-                                "doesn't flow out further. Length of the arc signifies the value of that subclass. Greater"
-                                " the length, higher the value. All the charts are clickable and interactive. Explore at will. ",
-                            ], style={
-                                "padding": "30px"
-                            }
-                        )
                     ],
                     className="six columns card"
                 )
             ], className="row",
         ),
+        html.Div(
+            [
+                html.P(
+                    ["This set of sunburst charts captures a snapshot of the finances of"
+                     " the Government of Karnataka during 2017-18 and 2018-19(",
+                     html.A(' ref.table 1.1 of state finance report',
+                            href='http://cedar.gov.in:8055/finances/introduction',
+                            target='_blank'),
+                     "). These visualisations have Receipts and Disbursements at its center and the data flows outward"
+                     " based on the sub classification. The classification ends at the outer-most node and "
+                     "doesn't flow out further. Length of the arc signifies the value of that subclass. Greater"
+                     " the length, higher the value. All the charts are clickable and interactive."]
+                )
+            ], style={
+                "margin-left": "100px",
+                "margin-right": "100px"
+            }
+        ),
         # treemap
         html.Div(
             className="twelve columns card",
             children=[
-                html.Div(
-                    children=[
-                        html.P(
-                            ["All the major financial parameters of karnataka between the years 2014 and 2019 are"
-                            " represented in the below treemap visualisation (",
-                            html.A('ref Appendix 1.4 of state finance report',
-                                            href='http://cedar.gov.in:8055/appendix/appendix14',
-                                            target='_blank'),
-                            "). Treemaps are ideal for displaying large "
-                            "amounts of hierarchically structured (tree-structured)data.The sizes of the rectangles"
-                            " indicate that Public Account Receipts has the highest share while capital receipts are"
-                            " the lowest.The rectangles are nested. Each rectangle that represents a "
-                            "receipts/expenditure consists of rectangles representing Years within that type of "
-                            "receipt/expenditure and it goes few more levels further down. To take a closer look at"
-                            " a certain part of the treemap, you can navigate from a higher hierarchy level to a lower"
-                            " one. Click on the hierarchy header of the level you want to navigate to."
-                            "The uppermost hierarchy header displays the hierarchy levels from the top level to the"
-                            " level you are currently viewing. To navigate upwards in the hierarchy, click on the level"
-                            " you want to navigate to."])
-                    ], style={
-                        "margin-left": "100px",
-                        "margin-right": "100px"
-                    }
-                ),
                 html.Div(
                     children=[
                         dcc.Graph(
@@ -255,6 +223,30 @@ app.layout = html.Div(
                             )
                         )
                     ]
+                ),
+                html.Div(
+                    children=[
+                        html.P(
+                            ["All the major financial parameters of karnataka between the years 2014 and 2019 are"
+                             " represented in the above treemap visualisation (",
+                             html.A('ref Appendix 1.4 of state finance report',
+                                    href='http://cedar.gov.in:8055/appendix/appendix14',
+                                    target='_blank'),
+                             "). Treemaps are ideal for displaying large "
+                             "amounts of hierarchically structured (tree-structured)data.The sizes of the rectangles"
+                             " indicate that Public Account Receipts has the highest share while capital receipts are"
+                             " the lowest.The rectangles are nested. Each rectangle that represents a "
+                             "receipts/expenditure consists of rectangles representing Years within that type of "
+                             "receipt/expenditure and it goes few more levels further down. To take a closer look at"
+                             " a certain part of the treemap, you can navigate from a higher hierarchy level to a lower"
+                             " one. Click on the hierarchy header of the level you want to navigate to."
+                             "The uppermost hierarchy header displays the hierarchy levels from the top level to the"
+                             " level you are currently viewing. To navigate upwards in the hierarchy, click on the level"
+                             " you want to navigate to."])
+                    ], style={
+                        "margin-left": "100px",
+                        "margin-right": "100px"
+                    }
                 ),
             ]
         ),
