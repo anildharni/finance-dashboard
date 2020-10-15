@@ -3,11 +3,13 @@ import pathlib
 import dash
 import dash_core_components as dcc
 import dash_html_components as html
+import dash_bootstrap_components as dbc
 import pandas as pd
 import plotly.express as px
 import plotly.graph_objects as go
 
 from utils import titlebar
+import time
 
 BASE_PATH = pathlib.Path(__file__).parent.resolve()
 DATA_PATH = BASE_PATH.joinpath("data").resolve()
@@ -86,11 +88,16 @@ app.layout = html.Div(
         html.Div(
             titlebar(app),
         ),
+        html.Button(
+            html.A("SFR",
+                    href='http://cedar.gov.in:8055',
+                    target='_blank',),
+               className="sidebarbtn"
+                    ),
         # First Sunburst Graphs
-        html.Div(
-            [
+        html.Div([
                 html.Div(
-                    [
+                    children=[
                         dcc.Graph(
                             config={
                                 'displaylogo': False,
@@ -582,10 +589,18 @@ exp.set_index('Year', inplace=True)
 centaxtrf.set_index('Particulars', inplace=True)
 
 
+# @app.callback(dash.dependencies.Output("loading-output-1", "children"),
+#               [dash.dependencies.Input("loading-input-1", "value")])
+# def input_triggers_spinner(value):
+#     time.sleep(1)
+#     return value
+
+
 @app.callback(dash.dependencies.Output("year_vs_everything", "figure"),
               [dash.dependencies.Input("outlay", "value"),
                dash.dependencies.Input("year_list", "value")])
 def update_graph(olay, lst):
+    time.sleep(2)
     if len(olay) <= 1:
         dat1 = [dict(x=lst,
                      y=tab_e.loc[lst, :].iloc[:][olay[0]],

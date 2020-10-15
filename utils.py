@@ -7,11 +7,7 @@ def titlebar(app):
         [
             get_header(app)
         ],
-        className="titleheader",
-        style={"border-radius": "0px",
-               "box-shadow": "1px" "1px" "3px" "rgba(0, 0, 0, 0.1)",
-               "margin-right": "15px"
-               }
+        className="titleheader"
     )
 
 

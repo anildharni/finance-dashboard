@@ -38,6 +38,7 @@ body {
   box-shadow: 0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23);
   margin-bottom: 54px;
 }
+}
 
 
  * {
@@ -109,13 +110,28 @@ body {
   border-radius: 25px;
 }
 
+.sidebarbtn {
+
+  margin-top: 12%;
+  margin-left:95%;
+  height: 18%;
+  width: 5%;
+  z-index: 10;
+  border-radius: 150px 0 0 150px;
+  background-color: #78B7FF;
+  color: whitesmoke;
+  font-weight: bold;
+  font-style: italic;
+  position: fixed;
+  transition: 2s;
+}
+
 
 .titleheader {
     background-color:rgb(120,183, 255,1);
     border-radius: 8px;
-    margin-left: 0px;
     box-shadow: 1px 10px 30px rgba(0, 0, 0, 0.4);
-    padding: 10px 0;
+    /*padding: 10px 0;*/
     position: relative;
     z-index: 2;
     }
