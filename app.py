@@ -11,9 +11,6 @@ from utils import titlebar
 import time
 from data import tab_e,tab_r,treemapf,summary,summary2,break_down,ntrpie,centaxtrf,corp,exp,approp
 
-BASE_PATH = pathlib.Path(__file__).parent.resolve()
-DATA_PATH = BASE_PATH.joinpath("data").resolve()
-
 app = dash.Dash(__name__)
 server = app.server
 app.title = 'SFR Dashboard'
