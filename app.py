@@ -913,5 +913,5 @@ def update_graph(rec, lst):
 
 
 if __name__ == '__main__':
-    # app.run_server(debug=False)
-    app.run_server(debug=True, port=8049)
+    app.run_server(debug=False)
+    # app.run_server(debug=True, port=8049)
