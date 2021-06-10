@@ -38,7 +38,7 @@ body {
   box-shadow: 0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23);
   margin-bottom: 54px;
 }
-}
+
 
 
  * {
@@ -175,7 +175,7 @@ body {
   font-size: 2rem;
   font-style:Garamond;
 }
-'''background-color: #D3D3D3
+/* '''background-color: #D3D3D3 */
 .colorbox {
   margin-left: 55px;
   margin-top: 15px;
@@ -236,7 +236,7 @@ body {
 }
 
 .heading {
-    textAlign: left;
+    text-align: left;
     padding-top: 3px;
     color: Black;
     font-weight: bold;
