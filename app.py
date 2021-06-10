@@ -1,5 +1,4 @@
 import pathlib
-
 import dash
 import dash_core_components as dcc
 import dash_html_components as html
@@ -10,78 +9,21 @@ import plotly.graph_objects as go
 
 from utils import titlebar
 import time
+from data import tab_e,tab_r,treemapf,summary,summary2,break_down,ntrpie,centaxtrf,corp,exp,approp
 
 BASE_PATH = pathlib.Path(__file__).parent.resolve()
 DATA_PATH = BASE_PATH.joinpath("data").resolve()
 
-# external_stylesheets = ['https://codepen.io/chriddyp/pen/bWLwgP.css']
 app = dash.Dash(__name__)
 server = app.server
 app.title = 'SFR Dashboard'
 bar_colors = ['#F5CDA7', '#FAA381', '#C9DBBA', '#99C5B5', '#899E8B', '#60935D', '#706C61', '#DCDBA8', '#13262F'
     , '#E9E6FF', '#91818A', '#0EB1D2']
-# bar_colors[1] = 'crimson'
 colors = {
     'background': '#eef0a1',
     'text': '#092859'
 }
 
-
-# remove later
-# df1 = pd.read_csv('https://raw.githubusercontent.com/plotly/datasets/718417069ead87650b90472464c7565dc8c2cb1c/sunburst-coffee-flavors-complete.csv')
-# print(df1.head(20))
-
-# df= pd.read_csv(DATA_PATH.joinpath("treemap.csv"), engine="python")
-# levels= ["Root","Type","Sub Type"]
-# color_columns=["Values","2018-19"]
-# value_column=["2018-19"]
-def build_hierarchical_dataframe(df, levels, value_column, color_columns=None):
-    """
-    Build a hierarchy of levels for Sunburst or Treemap charts.
-
-    Levels are given starting from the bottom to the top of the hierarchy,
-    ie the last level corresponds to the root.
-    """
-    df_all_trees = pd.DataFrame(columns=['id', 'parent', 'value', 'color'])
-    for i, level in enumerate(levels):
-        df_tree = pd.DataFrame(columns=['id', 'parent', 'value', 'color'])
-        dfg = df.groupby(levels[i:]).sum()
-        dfg = dfg.reset_index()
-        df_tree['id'] = dfg[level].copy()
-        if i < len(levels) - 1:
-            df_tree['parent'] = dfg[levels[i + 1]].copy()
-        else:
-            df_tree['parent'] = 'total'
-        df_tree['value'] = dfg[value_column]
-        df_tree['color'] = dfg[color_columns[0]] / dfg[color_columns[1]]
-        df_all_trees = df_all_trees.append(df_tree, ignore_index=True)
-    total = pd.Series(dict(id='total', parent='',
-                           value=df[value_column].sum(),
-                           color=df[color_columns[0]].sum() / df[color_columns[1]].sum()))
-    df_all_trees = df_all_trees.append(total, ignore_index=True)
-    return df_all_trees
-
-
-# df_all_trees = build_hierarchical_dataframe(df, levels, value_column, color_columns)
-
-# print(df_all_trees.iloc[:,1:3].head(15))
-
-
-# till here remove
-
-# data = pd.read_csv("C://Users//User//Documents//fullsample")
-
-tab_e = pd.read_csv(DATA_PATH.joinpath("data.csv"), engine="python")
-tab_r = pd.read_csv(DATA_PATH.joinpath("receipts.csv"), engine="python")
-summary = pd.read_csv(DATA_PATH.joinpath("summary.csv"), engine="python")
-summary2 = pd.read_csv(DATA_PATH.joinpath("summary2.csv"), engine="python")
-break_down = pd.read_csv(DATA_PATH.joinpath("breakdown.csv"), engine="python")
-treemapf = pd.read_csv(DATA_PATH.joinpath("treemap_fin.csv"), engine="python")
-ntrpie = pd.read_csv(DATA_PATH.joinpath("nontaxrevpie.csv"), engine="python")
-centaxtrf = pd.read_csv(DATA_PATH.joinpath("centaxtrf.csv"), engine="python")
-approp = pd.read_csv(DATA_PATH.joinpath("approp.csv"), engine="python")
-corp = pd.read_csv(DATA_PATH.joinpath("corp.csv"), engine="python")
-exp = pd.read_csv(DATA_PATH.joinpath("expenditure.csv"), engine="python")
 
 app.layout = html.Div(
     [
@@ -117,30 +59,6 @@ app.layout = html.Div(
                                 },
                                 color="Section",
                                 color_discrete_sequence=px.colors.diverging.Tropic[1:3] + ['#229e8a']
-                                # color_discrete_sequence=px.colors.sequential.Mint[3:],
-                                # color_discrete_sequence=px.colors.sequential.ice[5:], #almost finalised
-                                # color_discrete_sequence=px.colors.qualitative.Pastel,
-                                # color_continuous_scale=px.colors.sequential.BuGn,
-                                # range_color=[10,15],
-                                # hover_data=None,
-                                # maxdepth=2
-                                # branchvalues="remainder",
-                                # hoverinfo=None,
-                                # hover_name='Values',
-                                # hover_data={"Name": False, "Type":False, "Section":False},
-                                # color="Unarmed",
-                                # color_discrete_sequence=px.colors.qualitative.Pastel,
-                                # maxdepth=-1,                        # set the sectors rendered. -1 will render all levels in the hierarchy
-                                # color="Victim's age",
-                                # color_continuous_scale=px.colors.sequential.BuGn,
-                                # range_color=[10,100],
-                                # branchvalues="total",               # or 'remainder'
-                                # hover_name="Unarmed",
-                                # # hover_data={'Unarmed': False},    # remove column name from tooltip  (Plotly version >= 4.8.0)
-                                # title="7-year Breakdown of Deaths by Police",
-                                # template='ggplot2',               # 'ggplot2', 'seaborn', 'simple_white', 'plotly',
-                                #                                   # 'plotly_white', 'plotly_dark', 'presentation',
-                                #                                   # 'xgridoff', 'ygridoff', 'gridon', 'none',
                             ),
                         ),
                     ],
@@ -166,10 +84,8 @@ app.layout = html.Div(
                                     "Values": "Amount in Rupees",
                                     "labels": "id",
                                 },
-                                # template="ggplot2",
                                 color="Section",
                                 color_discrete_sequence=px.colors.sequential.Brwnyl[1:],  # finished
-                                # hover_name='Values',
                             ),
                         ),
                     ],
@@ -212,7 +128,6 @@ app.layout = html.Div(
                                 values="Values",
                                 title="Snapshot of Karnataka finances between 2014-15 and 2018-19",
                                 height=800,
-                                # width=1420,
                                 labels={
                                     "parent": "Classified under",
                                     "Values": "Amount in Rupees",
@@ -220,8 +135,6 @@ app.layout = html.Div(
                                 },
                                 template="seaborn",
                                 color="Year",
-                                # color_discrete_sequence=px.colors.sequential.PuBuGn[1::], #finished
-                                # hover_name='Values',
                             ).update_layout(
                                 font_family="Times New Roman",
                                 showlegend=False,
@@ -347,7 +260,6 @@ app.layout = html.Div(
                                   config={
                                       'modeBarButtonsToRemove': ['lasso2d'],
                                       'displaylogo': False,
-                                      # 'responsive': True
                                   },
                                   )
                     )
@@ -382,7 +294,6 @@ app.layout = html.Div(
                                   config={
                                       'modeBarButtonsToRemove': ['lasso2d'],
                                       'displaylogo': False,
-                                      # 'responsive': True
                                   }
                                   ),
                     ],
@@ -414,7 +325,6 @@ app.layout = html.Div(
                                   config={
                                       'modeBarButtonsToRemove': ['lasso2d'],
                                       'displaylogo': False,
-                                      # 'responsive': True
                                   },
                                   )
                     ],
@@ -490,7 +400,6 @@ app.layout = html.Div(
                                   config={
                                       'modeBarButtonsToRemove': ['lasso2d'],
                                       'displaylogo': False,
-                                      # 'responsive': True
                                   },
                                   )
                     ],
@@ -520,19 +429,9 @@ app.layout = html.Div(
                                     "labels": "id",
                                 },
                                 height=800,
-                                # template="ggplot2",
                                 color="Type",
                                 color_discrete_map={'Voted': '#42b7b9',
                                                     'Charged ': '#d39c83', },
-                                # color_discrete_map={'Revenue': '#d42424',
-                                #                     'Capital': '#d4a824',
-                                #                     'Loans and Advances':'#24d42d',
-                                #                     'Revenue ': '#24c8d4',
-                                #                     'Capital ': '#8e24d4',
-                                #                     'Public Debt Repayment':'#d4246d'},
-                                # color_discrete_sequence=px.colors.diverging.Tropic[1:],  # finished
-                                # hover_name='Values',
-                                # branchvalues="remainder"
                             )
                         ),
                     ],
@@ -559,23 +458,6 @@ app.layout = html.Div(
                                 height=800,
                                 color_discrete_map={'Below 50': '#3bd9db',
                                                     'Above 50': '#e88456', },
-                                # labels={
-                                #    "Name": "Name",
-                                #    "parent": "Classified under",
-                                #   "Values": "Amount in Rupees",
-                                #    "labels": "id",
-                                # },
-                                # template="ggplot2",
-                                # color="SubType",
-                                # color_discrete_map={'Revenue': '#d42424',
-                                #                     'Capital': '#d4a824',
-                                #                     'Loans and Advances':'#24d42d',
-                                #                     'Revenue ': '#24c8d4',
-                                #                     'Capital ': '#8e24d4',
-                                #                     'Public Debt Repayment':'#d4246d'},
-                                # color_discrete_sequence=px.colors.diverging.Tropic[1:],  # finished
-                                # hover_name='Values',
-                                # branchvalues="remainder"
                             ))
                     ], className="six columns card"),
             ]
@@ -587,13 +469,6 @@ tab_e.set_index('Year', inplace=True)
 tab_r.set_index('Year', inplace=True)
 exp.set_index('Year', inplace=True)
 centaxtrf.set_index('Particulars', inplace=True)
-
-
-# @app.callback(dash.dependencies.Output("loading-output-1", "children"),
-#               [dash.dependencies.Input("loading-input-1", "value")])
-# def input_triggers_spinner(value):
-#     time.sleep(1)
-#     return value
 
 
 @app.callback(dash.dependencies.Output("year_vs_everything", "figure"),
@@ -746,15 +621,12 @@ def update_graph(rad, srad):
             marker=go.bar.Marker(
                 color=bar_colors[item - 1]
             ),
-            # marker_color=bar_colors[item-1],
             name=srad[item]
         ) for item in range(len(srad))[1:]]
 
     return ({"data": dat1 + dat2,
              "layout": go.Layout(
                  title="Comparison of Receipts over years",
-                 # plot_bgcolor='aliceblue',
-                 # colorscale="anil",
                  xaxis={
                      'title': 'Years',
                      "showgrid": True,
@@ -774,13 +646,6 @@ def update_graph(rad, srad):
              )
              })
 
-
-# typ = ["Dividend and profits"]
-# print(ntrpie.set_index('column1').loc[["Dividend and profits", "Police"]].iloc[:, 0])
-
-
-# print(ntrpie.loc[0,0])
-
 @app.callback(dash.dependencies.Output("pie", "figure"),
               [dash.dependencies.Input("types", "value")])
 def update_graph(typs):
@@ -789,7 +654,6 @@ def update_graph(typs):
             'labels': typs,
             'values': ntrpie.set_index('column1').loc[typs].iloc[:, 0],
             'type': 'pie',
-            # 'hole': 0.4,
             'marker': {
                 'colors': ['#577590', '43aa8b', '90be6d', 'f9c74f', 'f8961e', 'f3722c', 'e07a5f',
                            "#4C3B4D", "#E94F37", "#320A28"]
@@ -914,4 +778,4 @@ def update_graph(rec, lst):
 
 if __name__ == '__main__':
     app.run_server(debug=False)
-    # app.run_server(debug=True, port=8049)
+    # app.run_server(debug=True, port=80)

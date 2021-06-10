@@ -6,3 +6,7 @@ venv/
 __pycache__
 .idea
 idea/
+data/
+data
+data.py
+Procfile
