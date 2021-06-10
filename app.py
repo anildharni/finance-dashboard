@@ -353,8 +353,8 @@ app.layout = html.Div(
                         ),
                         html.Div(
                             html.P("content"),
-                            className="card"
-                            , style={
+                            className="card",
+                            style={
                                 'padding': 30
                             })
                     ], style={
@@ -472,7 +472,6 @@ def update_graph(olay, lst):
                  'title': 'Type of Institution',
                  "showgrid": True,
                  "showticklabels": True,
-                 "tickformat": ",g"
              },
              legend=dict(
                  y=-0.2,
@@ -523,7 +522,6 @@ def update_graph(rec, lst):
                  'title': 'Variables selected in dropdown',
                  "showgrid": True,
                  "showticklabels": True,
-                 "tickformat": ",g"
              },
              legend=dict(
                  y=-0.2,
@@ -600,7 +598,6 @@ def update_graph(rad, srad):
                      'title': 'Sub classification',
                      "showgrid": True,
                      "showticklabels": True,
-                     "tickformat": ",g"
                  },
                  legend=dict(
                      y=-0.2,
@@ -677,7 +674,6 @@ def update_graph(olay, lst):
                  'title': 'Type of Institution',
                  "showgrid": True,
                  "showticklabels": True,
-                 "tickformat": ",g"
              },
              legend=dict(
                  y=-0.2,
@@ -728,7 +724,6 @@ def update_graph(rec, lst):
                  'title': 'Variables selected in dropdown',
                  "showgrid": True,
                  "showticklabels": True,
-                 "tickformat": ",g"
              },
              legend=dict(
                  y=-0.2,
